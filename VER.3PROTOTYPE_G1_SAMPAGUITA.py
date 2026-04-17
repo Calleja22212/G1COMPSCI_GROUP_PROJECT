@@ -1,8 +1,9 @@
+TOTAL_PRICE=0
 CAMPUS=["CBZRC", "IRC", "WVC","CLC",
           "CVC", "CMC", "MC","ZRC",
           "EVC", "CVISC", "DRC", "MRC",
           "BRC", "ZPRC", "NMC", "SRC", "CARC"]#Campus abbreviations
-RICEPRICE={"Whole":50, "Half":25, "None":0}#Rice prices
+RICECEPRICE={"Whole":50, "Half":25, "None":0}#Rice prices
 MAINSPRICE={"Seafood":40, "Beef":35,
              "Vegetables":35, "Pork":25, "Chicken":30}#Main prices
 SHAKE_FLAVORS=["Banana","Straberry","Blueberry","Muscat grape",
@@ -11,6 +12,7 @@ SHAKE_FLAVORS=["Banana","Straberry","Blueberry","Muscat grape",
             "Pineapple"]#Shake flavors
 JUICE_FLAVORS=['Pink lemonade', 'Blue lemonade', 'Iced tea', 'Cucumber lemonade', 'C2', 'Mogu mogu', 'Pineapple'
             'Apple', 'Buko juice', 'Lemonade', 'Orange']#Juice options
+MAIN=[]
 SIDE=[]
 def address(email_name, abr):
         return f"{email_name}@{abr.lower()}.pshs.edu.ph"
@@ -70,30 +72,56 @@ if pick=="Yes":
         try:
             if mode=="Dine-in":#Plate section for dining-in
                 print("You have a limit of three plates.")
-                plate_counter=int(input("How many plates?"))
-                while plate_counter>3 or plate_counter<0:
-                    if plate_counter>3:
+                counter=int(input("How many plates?"))
+                while counter>3 or plate_counter<0:
+                    if counter>3:
                         print("Over limit, kindly try again.")
-                        plate_counter=int(input("How many plates?"))
+                        counter=int(input("How many plates?"))
                     else:
                         print("Invalid input, kindly try again.")
-                        plate_counter=int(input("How many plates?"))
+                        counter=int(input("How many plates?"))
                 break
             else:#Takout section for boxes
                 print("You have a limit of three boxes.")
                 box_counter=int(input("How many boxes?"))
                 match box_counter:
-                    case _ if box_counter>3:
-                        while box_counter>3:
+                    case _ if counter>3:
+                        while counter>3:
                             print("Over limit, kindly try again.")
-                            box_counter=int(input("How many boxes?"))
+                            counter=int(input("How many boxes?"))
                     case _ if box_counter<0:
                         while box_counter<0:
                             print("Invalid input, kindly try again.")
                             box_counter=int(input("How many boxes?"))
+#END OF SEGMENT#
                 break
         except ValueError:
-            print(f"""Error in values entered
-, kindly try again""")
+            print(f"""Error in values entered, kindly try again""")
+ #RICE AND MAINS SEGMENT#
+ while True:
+     try:
+          rice_pick=str(input("Whole, Half, or None for rice")).title()
+          while rice_pick not in ["Whole", "Half", "None"]:
+                 print("Choice does not exist, kindly try again.")
+                 rice_pick=str(input("Whole, Half, or None for rice")).title()
+          TOTAL_PRICE=RICEPRICE[rice_pick]*counter   
+          c=2*counter#Display choices remaining
+          for i in range(0,c):
+                 print(f"You have {c} options left, enter 0 to exit")
+                 main_dish=str(input("Enter a main dish to go with your rice:")).title()
+                 print(MAINSPRICE)
+                 if main_dish=='0':
+                           break
+                 while main_dish not in ["Chicken","Pork","Beef","Vegetables","Seafood"]:
+                           print("Choice does not exist, kindly try again")
+                           main_dish=str(input("Enter a main dish to go with your rice:")).title()
+                 TOTAL_PRICE=TOTAL_PRICE+MAINSPRICE[main_dish]
+                 MAIN.append()
+                 c-=1
+          break
+#END OF SEGMENT#
+     except ValueError:
+            print(f"""Error in values entered, kindly try again""")
 print("===THANK YOU FOR YOUR COOPERATION====")
 
+          
