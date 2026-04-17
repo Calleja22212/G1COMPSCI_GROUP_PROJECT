@@ -137,7 +137,7 @@ if pick=="Yes":
             print(f"""Error in values entered, kindly try again""")
 
 
- #DRINKS AND SHAKES SEGMENT#
+ #DRINKS SEGMENT#
     while True:
         try:
             drink_response=str(input("Would you like drinks (Yes/No)?")).title()
