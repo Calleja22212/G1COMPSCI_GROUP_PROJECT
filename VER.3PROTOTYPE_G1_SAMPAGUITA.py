@@ -142,9 +142,9 @@ if pick=="Yes":
     while True:
         try:
             drink_response=str(input("Would you like drinks (Yes/No)?")).title()
-            while rice_pick not in ["Whole", "Half", "None"]:
+            while drink_response not in ["Yes", "No"]:
                  print("Choice does not exist, kindly try again.")
-                 rice_pick=str(input("Whole, Half, or None for rice")).title()
+                 drink_response=str(input("Would you like drinks (Yes/No)?")).title()
             if drink_response=="Yes":
                       drink_counter=int(input("How many do you want? You have a limit of ten")).title()
                       while drink_counter<0 or drink_counter>10:
