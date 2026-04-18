@@ -14,6 +14,7 @@ DAIRY=["Milo", "Milk", "Yakult"]
 JUICE_FLAVORS=['Pink lemonade', 'Blue lemonade', 'Iced tea', 'Cucumber', 'C2', 'Mogu mogu', 'Pineapple'
             'Apple', 'Buko', 'Lemonade', 'Orange', 'Blueberry', 'Strawberry', 'Lemon', ]#Juice options
 MAIN=[]
+RICE=[]
 DRINK=[]
 def address(email_name, abr):
         return f"{email_name}@{abr.lower()}.pshs.edu.ph"
@@ -21,7 +22,7 @@ def address(email_name, abr):
 pick=str(input("Welcome, dear user. Would you sign in for ordering at the canteen (Yes/No)?")).title()
 while pick not in ["Yes", "No"]:
     print("Kindly try again")
-    pick=str(input("Dear user, would you sign in for ordering at the canteen?")).upper()
+    pick=str(input("Dear user, would you sign in for ordering at the canteen?")).title()
 if pick=="Yes":
     print("Proceed with the following instructions")
 
@@ -105,21 +106,21 @@ if pick=="Yes":
     while True:
         try:
             rice_response=str(input("Would you like some rice (Yes/No):")).title()
-            while rice_response!="Yes" and rice_response!="No":
+            while rice_response!="Yes" and rice_response!="No":#Error handling
                       print("Kindly try again")
                        rice_response=str(input("Would you like some rice (Yes/No):")).title()
             if rice=="Yes":
-                      rice_pick=str(input("Whole, Half, or None for rice")).title()
-                      while rice_pick not in ["Whole", "Half", "None"]:
-                          
-                           print("Choice does not exist, kindly try again.")
-                           rice_pick=str(input("Whole, Half, or None for rice")).title()
-          
-                      TOTAL_PRICE=RICEPRICE[rice_pick]*counter
-                      c=2*counter#Display choices remainingg
+                 r=counter
+                 for i in range(0, r):
+                          rice_pick=str(input("Whole, Half, or None for rice")).title()
+                          while rice_pick not in ["Whole", "Half", "None"]:
+                                print("Choice does not exist, kindly try again.")
+                                rice_pick=str(input("Whole, Half, or None for rice")).title()
+                          TOTAL_PRICE=RICEPRICE[rice_pick]+TOTAL_PRICE
+            c=2*counter#Display choices remaining, dependant on no. of plates ordered
 
             for i in range(0,c):
-                 print(f"You have {c} options left, enter 0 to exit")
+                 print(f"Enter your main dishes. You have {c} options left. Enter 0 to exit")
                  main_dish=str(input("Enter a main dish or dishes to go:")).title()
                  print(MAINSPRICE)
                  if main_dish=='0':
@@ -154,12 +155,14 @@ if pick=="Yes":
                       print(f"""AVAILABLE DAIRY: {DAIRY}""")
                       e=drink_counter
                       for i in range(0,e):
-                           print(f"""Enter some drinks to go. You have {e} choice/s left""")
+                           print(f"""Enter some drinks to go. You have {e} choice/s left. Enter 0 to exit.""")
                            drink=str(input("Shake, Juice, or Dairy?")).title()
-                           while drink not in ["Shake","Juice","Dairy"]:
+                           while drink not in ["Shake","Juice","Dairy", "0"]:
                                      print("Kindly try again")
                                      drink=str(input("Shake, Juice, or Dairy?")).title()
-                           if drink=="Shake":
+                           if drink=="0":
+                                     break
+                           elif drink=="Shake":
                                      TOTAL_PRICE=TOTAL_PRICE+20
                                      drink_pick=str(input(f"""Pick from these: {SHAKE_FLAVORS}""")).title()
                                      while drink_pick not found in {JUICE_FLAVORS}:
@@ -176,16 +179,32 @@ if pick=="Yes":
                                       drink_pick=str(input(f"""Pick from these: {DAIRY}""")).title()
                                       while drink_pick not found in DAIRY:
                                                 print("Option not found, kindly try again")
-                                                drink_pick=str(input(f"""Pick from these: {DAIRY}""")).title()
-                                                       
+                                                drink_pick=str(input(f"""Pick from these: {DAIRY}""")).title()                        
                            DRINK.append(drink_pick)
-                           e-=1                           
+                           e-=1                        
 
             break
 #END OF SEGMENT#
         except ValueError:
             print(f"""Error in values entered, kindly try again""")
+ #OUTPUT SEGMENT#
+ print("===FINAL RECEIPT===")
+ print(f"""EMAIL: {email}
+ CHOICE: {choice}
+ PLATES/BOXES ORDERED: {counter}""")
+ if rice_response="No":
+           print(f"RICE: NONE")
+ else:
+           print(f"RICE: (RICE)")
+ print(f"TOTAL PRICE: {TOTAL_PRICE}")
+ print(f"MAIN: {MAIN})
+ print(f"NO. OF DRINKS ORDERED: {drink_counter}
 
+ if drink_response="No":
+           print(f"DRINKS: NONE")
+ else:
+           print(f"DRINKS: (DRINK)")
+ print(f"TOTAL PRICE: {TOTAL_PRICE}")
+           
             
 print("===THANK YOU FOR YOUR COOPERATION====")
-          
